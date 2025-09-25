@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Make the website adjust properly on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+  <!-- Link to external CSS file -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Navigation menu at the top -->
+  <nav>
+    <ul>
+      <!-- Links scroll to sections on the same page -->
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- About section with intro text -->
+  <section id="about">
+    <h1>Hello, I’m Khaled Mathbaq 👋</h1>
+    <p>A Junior CS student at KFUPM</p>
+    <p>I love to do projects and assignments</p>
+  </section>
+
+  <!-- Projects section with two examples -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <!-- First project -->
+    <div class="project">
+      <img src="assets/images/project1.png" alt="Project 1">
+      <h3>Pipelined Processor Design</h3>
+      <p>Designed a 5-stage pipelined processor using digital design schematics. Implemented instruction fetch, decode, execute, memory, and write-back stages with hazard handling. Demonstrated faster instruction throughput compared to single-cycle design.</p>
+    </div>
+    <!-- Second project -->
+    <div class="project">
+      <img src="assets/images/project2.png" alt="Project 2">
+      <h3>KFUPM Transportation System</h3>
+      <p>KFUPM transportation system is an app for KFUPM students that provides
+        similar functions to Google Maps but tailored to campus with more features.</p>
+    </div>
+  </section>
+
+  <!-- Contact section with form (no backend) -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form>
+      <!-- User fills out their name -->
+      <input type="text" placeholder="Name" required>
+      <!-- User fills out their email -->
+      <input type="email" placeholder="Email" required>
+      <!-- Message textarea -->
+      <textarea placeholder="Message" required></textarea>
+      <!-- Submit button -->
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- Link to external JavaScript file -->
+  <script src="js/script.js"></script>
+</body>
+</html>
