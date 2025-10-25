@@ -1,65 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <!-- Make the website adjust properly on mobile devices -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
-  <!-- Link to external CSS file -->
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <!-- Navigation menu at the top -->
-  <nav>
-    <ul>
-      <!-- Links scroll to sections on the same page -->
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Khaled Mathbaq – Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Top bar -->
+    <header class="site-header container fade-in">
+      <nav class="brand">
+        <a class="skip" href="#about">Skip to content</a>
+        <span class="logo" aria-hidden="true">⚡</span>
+        <strong>Khaled Mathbaq</strong>
+      </nav>
 
-  <!-- About section with intro text -->
-  <section id="about">
-    <h1>Hello, I’m Khaled Mathbaq 👋</h1>
-    <p>A Junior CS student at KFUPM</p>
-    <p>I love to do projects and assignments</p>
-  </section>
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
 
-  <!-- Projects section with two examples -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <!-- First project -->
-    <div class="project">
-      <img src="assets/images/project1.png" alt="Project 1">
-      <h3>Pipelined Processor Design</h3>
-      <p>Designed a 5-stage pipelined processor using digital design schematics. Implemented instruction fetch, decode, execute, memory, and write-back stages with hazard handling. Demonstrated faster instruction throughput compared to single-cycle design.</p>
-    </div>
-    <!-- Second project -->
-    <div class="project">
-      <img src="assets/images/project2.png" alt="Project 2">
-      <h3>KFUPM Transportation System</h3>
-      <p>KFUPM transportation system is an app for KFUPM students that provides
-        similar functions to Google Maps but tailored to campus with more features.</p>
-    </div>
-  </section>
+      <div class="header-actions">
+        <button id="theme-toggle" class="btn" aria-pressed="false" aria-label="Toggle theme">🌙</button>
+        <button id="set-name" class="btn" aria-label="Set your name">Set Name</button>
+      </div>
+    </header>
 
-  <!-- Contact section with form (no backend) -->
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form>
-      <!-- User fills out their name -->
-      <input type="text" placeholder="Name" required>
-      <!-- User fills out their email -->
-      <input type="email" placeholder="Email" required>
-      <!-- Message textarea -->
-      <textarea placeholder="Message" required></textarea>
-      <!-- Submit button -->
-      <button type="submit">Send</button>
-    </form>
-  </section>
+    <main class="container">
+      <!-- ABOUT -->
+      <section id="about" class="fade-in" tabindex="-1">
+        <h1 class="tight">Hello<span id="greeting-comma" hidden>,</span> <span id="greeting-name">there</span>! 👋</h1>
+        <p class="muted">Good <span id="greeting-time">day</span>. This greeting updates with time and your saved name.</p>
+        <p>I’m Khaled, a junior CS student at KFUPM. I love building projects and assignments.</p>
 
-  <!-- Link to external JavaScript file -->
-  <script src="js/script.js"></script>
-</body>
+        <article class="card">
+          <h2>Fun Quote (API demo)</h2>
+          <p id="fact-text" class="fact" aria-live="polite">Click the button to load a quote.</p>
+          <div class="row">
+            <button id="load-fact" class="btn">Load Quote</button>
+            <div id="fact-loading" class="spinner" hidden aria-label="Loading"></div>
+          </div>
+          <p id="fact-error" class="error" role="alert" hidden>
+            Couldn't fetch a quote. <button id="fact-retry" class="link">Try again</button>.
+          </p>
+        </article>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="fade-in" tabindex="-1">
+        <h2 class="tight">Projects</h2>
+
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Search projects…" aria-label="Search projects" />
+          <select id="filter" aria-label="Filter by category">
+            <option value="all">All</option>
+            <option value="web">Web</option>
+            <option value="app">App</option>
+            <option value="systems">Systems</option>
+          </select>
+          <select id="sort" aria-label="Sort projects">
+            <option value="recent">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+          </select>
+        </div>
+
+        <div id="projects-grid" class="grid" aria-live="polite"></div>
+        <p id="empty-state" class="muted" hidden>No projects found. Try different filters.</p>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="fade-in" tabindex="-1">
+        <h2 class="tight">Contact Me</h2>
+        <form id="contact-form" class="card" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required />
+            <small class="error" id="err-name" hidden>Please enter your name.</small>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+            <small class="error" id="err-email" hidden>Please enter a valid email.</small>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+            <small class="error" id="err-message" hidden>Please enter a message (10+ chars).</small>
+          </div>
+          <div class="row">
+            <button class="btn" type="submit">Send</button>
+            <div id="form-loading" class="spinner" hidden aria-label="Sending"></div>
+          </div>
+          <p id="form-success" class="success" role="status" hidden>Thanks! Your message was sent. ✅</p>
+          <p id="form-failure" class="error" role="alert" hidden>Send failed. Please try again.</p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="container muted">
+      <details class="fade-in">
+        <summary>Performance & Accessibility Notes</summary>
+        <ul>
+          <li>Respects <code>prefers-reduced-motion</code>.</li>
+          <li>ARIA live regions announce updates.</li>
+          <li>Semantic structure + keyboard-friendly controls.</li>
+        </ul>
+      </details>
+      <p class="tiny">© <span id="year"></span> Khaled Mathbaq</p>
+    </footer>
+
+    <script src="js/script.js" defer></script>
+  </body>
 </html>
