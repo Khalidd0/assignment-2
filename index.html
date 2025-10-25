@@ -6,11 +6,11 @@
     <title>Khaled Mathbaq – Portfolio</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
+
   <body>
-    <!-- Top bar -->
+    <!-- Header -->
     <header class="site-header container fade-in">
       <nav class="brand">
-        <a class="skip" href="#about">Skip to content</a>
         <span class="logo" aria-hidden="true">⚡</span>
         <strong>Khaled Mathbaq</strong>
       </nav>
@@ -27,29 +27,33 @@
       </div>
     </header>
 
+    <!-- Main -->
     <main class="container">
       <!-- ABOUT -->
       <section id="about" class="fade-in" tabindex="-1">
-        <h1 class="tight">Hello<span id="greeting-comma" hidden>,</span> <span id="greeting-name">there</span>! 👋</h1>
+        <h1>Hello<span id="greeting-comma" hidden>,</span> <span id="greeting-name">there</span>! 👋</h1>
         <p class="muted">Good <span id="greeting-time">day</span>. This greeting updates with time and your saved name.</p>
         <p>I’m Khaled, a junior CS student at KFUPM. I love building projects and assignments.</p>
 
-        <article class="card">
-          <h2>Fun Quote (API demo)</h2>
-          <p id="fact-text" class="fact" aria-live="polite">Click the button to load a quote.</p>
+        <!-- ✅ Updated API Demo Section -->
+        <article class="card fade-in">
+          <h2>Fun Quote (API demo – DummyJSON)</h2>
+          <p id="fact-text" class="fact" aria-live="polite">Click the button to load a random quote.</p>
+
           <div class="row">
             <button id="load-fact" class="btn">Load Quote</button>
             <div id="fact-loading" class="spinner" hidden aria-label="Loading"></div>
           </div>
+
           <p id="fact-error" class="error" role="alert" hidden>
-            Couldn't fetch a quote. <button id="fact-retry" class="link">Try again</button>.
+            Couldn’t fetch a quote. <button id="fact-retry" class="link">Try again</button>.
           </p>
         </article>
       </section>
 
       <!-- PROJECTS -->
       <section id="projects" class="fade-in" tabindex="-1">
-        <h2 class="tight">Projects</h2>
+        <h2>Projects</h2>
 
         <div class="toolbar">
           <input id="search" type="search" placeholder="Search projects…" aria-label="Search projects" />
@@ -73,7 +77,7 @@
 
       <!-- CONTACT -->
       <section id="contact" class="fade-in" tabindex="-1">
-        <h2 class="tight">Contact Me</h2>
+        <h2>Contact Me</h2>
         <form id="contact-form" class="card" novalidate>
           <div class="field">
             <label for="name">Name</label>
@@ -100,15 +104,8 @@
       </section>
     </main>
 
+    <!-- Footer -->
     <footer class="container muted">
-      <details class="fade-in">
-        <summary>Performance & Accessibility Notes</summary>
-        <ul>
-          <li>Respects <code>prefers-reduced-motion</code>.</li>
-          <li>ARIA live regions announce updates.</li>
-          <li>Semantic structure + keyboard-friendly controls.</li>
-        </ul>
-      </details>
       <p class="tiny">© <span id="year"></span> Khaled Mathbaq</p>
     </footer>
 
