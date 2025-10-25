@@ -1,21 +1,35 @@
 # AI Usage Report
 
-## Tools Used
-- ChatGPT
+**Course:** Assignment 2 – Interactive Features  
+**Author:** Khaled Mathbaq  
+**Repo:** <add your GitHub link>
 
-## How I Used AI
-I used AI mainly to speed up the development of my portfolio project. It helped me generate the initial structure for the HTML, CSS, and JavaScript files. I also asked for examples of responsive design (using CSS Grid) and simple interactive features like a greeting message and smooth scrolling. In addition, I used it for guidance on writing the README and technical documentation becaues I have never wrote a .md file.
+## Tools Used
+- ChatGPT (model + date of use)
+- (Add: Copilot/Claude/etc if used)
+
+## Use Cases
+1) **Brainstorming interactions**  
+   **Prompt:** …  
+   **Raw Output (excerpt):** …  
+   **My Edits:** …  
+   **What I learned:** …
+
+2) **Code generation / review**  
+   **Prompt:** …  
+   **Output (excerpt):** …  
+   **My Edits & Why:** …
+
+(Add as many entries as needed. Include tool, exact prompt, output excerpt, your edits, and learning.)
 
 ## Benefits
-- Saved time by quickly generating starter code and file structure.
-- Helped me understand how to apply responsive design and interactivity.
-- Provided suggestions for improving layout and styling.
+- Faster iteration; ideas for accessibility and feedback states.
 
 ## Challenges
-- Some of the AI suggestions were more complex than needed for my project, so I had to simplify them.
-- I needed to double-check the code to make sure it matched the assignment requirements.
+- Verifying API suggestions; preventing over-engineering.
 
-## Learning Outcomes
-- I learned how to structure a small web project with separate HTML, CSS, and JS files.
-- I practiced modifying AI-generated code instead of just copying it, which improved my understanding.
-- I became more comfortable using AI as a supportive tool rather than relying on it completely.
+## Understanding
+I reviewed and modified all AI outputs and can explain the code.
+
+## Ethics
+Transparent documentation of assistance. No copied peer code.
