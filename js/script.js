@@ -2,13 +2,10 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-  /* ------------------------------
-   * STATE
-   * ------------------------------ */
+  // STATE
   const STATE = {
     theme: localStorage.getItem("theme") || "light",
     username: localStorage.getItem("username") || "",
-    
     projects: [
       {
         id: 1,
@@ -29,17 +26,6 @@
         img: "assets/images/project2.png",
         description:
           "Campus navigation app for KFUPM with building search and optimized routes tailored to student needs."
-      },
-      
-      {
-        id: 3,
-        title: "Portfolio Landing",
-        category: "web",
-        date: "2025-03-01",
-        tags: ["HTML", "CSS", "JS"],
-        img: "assets/images/project1.png",
-        description:
-          "Responsive landing with hero, features and contact form enhancements."
       }
     ],
     filter: "all",
@@ -47,9 +33,7 @@
     search: ""
   };
 
-  /* ------------------------------
-   * THEME
-   * ------------------------------ */
+  // THEME TOGGLE
   document.documentElement.setAttribute("data-theme", STATE.theme);
   const themeToggle = $("#theme-toggle");
   const setThemeUI = () => {
@@ -64,9 +48,7 @@
     setThemeUI();
   });
 
-  /* ------------------------------
-   * GREETING (time + saved name)
-   * ------------------------------ */
+  // GREETING
   const greetingName = $("#greeting-name");
   const greetingTime = $("#greeting-time");
   const greetingComma = $("#greeting-comma");
@@ -95,17 +77,12 @@
     }
   });
 
-  /* ------------------------------
-   * PROJECTS: render + filter/sort/search
-   * ------------------------------ */
+  // PROJECT RENDERING
   const grid = $("#projects-grid");
   const emptyState = $("#empty-state");
-
   const renderProjects = () => {
     let data = [...STATE.projects];
-
     if (STATE.filter !== "all") data = data.filter(p => p.category === STATE.filter);
-
     if (STATE.search) {
       const q = STATE.search.toLowerCase();
       data = data.filter(
@@ -115,29 +92,15 @@
           p.description.toLowerCase().includes(q)
       );
     }
-
     switch (STATE.sort) {
-      case "recent":
-        data.sort((a, b) => b.date.localeCompare(a.date));
-        break;
-      case "oldest":
-        data.sort((a, b) => a.date.localeCompare(b.date));
-        break;
-      case "az":
-        data.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case "za":
-        data.sort((a, b) => b.title.localeCompare(a.title));
-        break;
+      case "recent": data.sort((a, b) => b.date.localeCompare(a.date)); break;
+      case "oldest": data.sort((a, b) => a.date.localeCompare(b.date)); break;
+      case "az": data.sort((a, b) => a.title.localeCompare(b.title)); break;
+      case "za": data.sort((a, b) => b.title.localeCompare(a.title)); break;
     }
-
     grid.innerHTML = "";
-    if (!data.length) {
-      emptyState.hidden = false;
-      return;
-    }
+    if (!data.length) { emptyState.hidden = false; return; }
     emptyState.hidden = true;
-
     for (const p of data) {
       const card = document.createElement("article");
       card.className = "project fade-in";
@@ -149,20 +112,16 @@
         <details>
           <summary>Details</summary>
           <p>${p.description}</p>
-        </details>
-      `;
+        </details>`;
       grid.appendChild(card);
     }
     observeInView();
   };
-
   $("#filter").addEventListener("change", e => { STATE.filter = e.target.value; renderProjects(); });
   $("#sort").addEventListener("change", e => { STATE.sort = e.target.value; renderProjects(); });
   $("#search").addEventListener("input", e => { STATE.search = e.target.value; renderProjects(); });
 
-  /* ------------------------------
-   * Fade-in on scroll
-   * ------------------------------ */
+  // FADE-IN ANIMATIONS
   const observeInView = () => {
     const els = $$(".fade-in");
     const io = new IntersectionObserver((entries) => {
@@ -171,31 +130,40 @@
     els.forEach(el => io.observe(el));
   };
 
-  
+ 
   const factEl = $("#fact-text");
   const factLoading = $("#fact-loading");
   const factError = $("#fact-error");
-  const loadFact = async () => {
+
+  const OFFLINE_QUOTES = [
+    { q: "Code is like humor. When you have to explain it, it’s bad.", a: "Cory House" },
+    { q: "Simplicity is the soul of efficiency.", a: "Austin Freeman" },
+    { q: "The best error message is the one that never shows up.", a: "Thomas Fuchs" },
+    { q: "The only way to learn a new programming language is by writing programs in it.", a: "Dennis Ritchie" },
+  ];
+
+  async function loadFact() {
     factError.hidden = true;
     factLoading.hidden = false;
     try {
-      const res = await fetch("https://api.quotable.io/random", { cache: "no-store" });
+      const res = await fetch("https://dummyjson.com/quotes/random", { cache: "no-store" });
       if (!res.ok) throw new Error("HTTP " + res.status);
       const data = await res.json();
-      factEl.textContent = `“${data.content}” — ${data.author}`;
+      factEl.textContent = `“${data.quote}” — ${data.author}`;
     } catch (err) {
-      console.error(err);
+      console.error("Quote fetch failed:", err);
+      const fallback = OFFLINE_QUOTES[Math.floor(Math.random() * OFFLINE_QUOTES.length)];
+      factEl.textContent = `“${fallback.q}” — ${fallback.a} (offline)`;
       factError.hidden = false;
     } finally {
       factLoading.hidden = true;
     }
-  };
+  }
+
   $("#load-fact").addEventListener("click", loadFact);
   $("#fact-retry").addEventListener("click", loadFact);
 
-  /* ------------------------------
-   * Contact form: validation, loading, success/failure
-   * ------------------------------ */
+  // CONTACT FORM
   const form = $("#contact-form");
   const errName = $("#err-name");
   const errEmail = $("#err-email");
@@ -203,11 +171,9 @@
   const loading = $("#form-loading");
   const ok = $("#form-success");
   const fail = $("#form-failure");
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  // Persist draft in localStorage
+  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
   const draftKey = "contactDraft";
+
   const syncDraftFromUI = () => {
     const draft = { name: $("#name").value, email: $("#email").value, message: $("#message").value };
     localStorage.setItem(draftKey, JSON.stringify(draft));
@@ -226,33 +192,22 @@
   loadDraft();
 
   const show = (el, on = true) => (el.hidden = !on);
-
   const validate = () => {
     let good = true;
     const name = $("#name").value.trim();
     const email = $("#email").value.trim();
     const msg = $("#message").value.trim();
-
-    show(errName, name.length < 1);
-    if (name.length < 1) good = false;
-
-    show(errEmail, !emailRegex.test(email));
-    if (!emailRegex.test(email)) good = false;
-
-    show(errMsg, msg.length < 10);
-    if (msg.length < 10) good = false;
-
+    show(errName, name.length < 1); if (name.length < 1) good = false;
+    show(errEmail, !emailRegex.test(email)); if (!emailRegex.test(email)) good = false;
+    show(errMsg, msg.length < 10); if (msg.length < 10) good = false;
     return good;
   };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     ok.hidden = true; fail.hidden = true; show(loading, true);
-
     if (!validate()) { show(loading, false); return; }
-
     try {
-      // Simulate network latency
       await new Promise(r => setTimeout(r, 900));
       ok.hidden = false;
       localStorage.removeItem(draftKey);
@@ -265,7 +220,6 @@
     }
   });
 
-  /* ------------------------------ */
   $("#year").textContent = new Date().getFullYear();
   renderProjects();
   observeInView();
