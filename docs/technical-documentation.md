@@ -21,21 +21,20 @@ The portfolio demonstrates skills in:
 ---
 
 ## 🧩 File Structure
+```
 assignment-2/
 ├── index.html
 ├── css/
-│ └── styles.css
+│   └── styles.css
 ├── js/
-│ └── script.js
+│   └── script.js
 ├── assets/
-│ └── images/
+│   └── images/
 ├── docs/
-│ ├── ai-usage-report.md
-│ └── technical-documentation.md
+│   ├── ai-usage-report.md
+│   └── technical-documentation.md
 └── README.md
-
-markdown
-Copy code
+```
 
 ---
 
@@ -77,142 +76,114 @@ const STATE = {
   sort: "recent",
   search: ""
 };
-🔹 Features Implemented
-Theme Toggle
+```
 
-Toggles between light/dark modes.
+#### 🔹 Features Implemented
+1. **Theme Toggle**  
+   - Toggles between light/dark modes.  
+   - Saves user preference to `localStorage`.  
+   - Updates immediately on page load.
 
-Saves user preference to localStorage.
+2. **Dynamic Greeting**  
+   - Detects current time of day (morning/afternoon/evening).  
+   - Displays a personalized greeting using a saved name.  
+   - Allows user to set their name via a button prompt.
 
-Updates immediately on page load.
+3. **Projects Section (Dynamic Rendering)**  
+   - Projects are stored as objects inside `STATE.projects`.  
+   - Implements:
+     - **Live Search** – filters by title or tags.  
+     - **Category Filter** – filters by type (web, app, systems).  
+     - **Sorting** – by newest, oldest, or alphabetically.  
+   - Uses `<details>` for collapsible project descriptions.  
+   - Displays an empty-state message if no results are found.
 
-Dynamic Greeting
+4. **External API Integration**  
+   - Fetches a random quote using `fetch("https://api.quotable.io/random")`.  
+   - Displays a loading spinner while waiting.  
+   - Handles network or API errors gracefully and provides a retry button.
 
-Detects current time of day (morning/afternoon/evening).
+5. **Contact Form Handling**  
+   - Validates input for:
+     - Non-empty name
+     - Valid email format
+     - Message of at least 10 characters  
+   - Shows inline feedback messages instead of alerts.  
+   - Includes a fake “sending” loader and success/failure messages.  
+   - Saves form draft to `localStorage` (`contactDraft`) so input isn’t lost on refresh.
 
-Displays a personalized greeting using a saved name.
+6. **Animations and Transitions**  
+   - Elements with `.fade-in` class animate when they enter the viewport.  
+   - Implemented with `IntersectionObserver` for efficiency.  
+   - Buttons and cards use subtle transitions for a polished feel.
 
-Allows user to set their name via a button prompt.
+7. **Accessibility Enhancements**  
+   - ARIA roles for live updates and tab navigation.  
+   - Focus automatically moves to section headings on tab change.  
+   - Color contrast verified for both themes.  
+   - Motion-reduction support for users with sensitive visual preferences.
 
-Projects Section (Dynamic Rendering)
+---
 
-Projects are stored as objects inside STATE.projects.
+## 📡 Data Handling Summary
+| Data | Storage / Source | Purpose |
+|------|------------------|----------|
+| Theme Preference | `localStorage("theme")` | Remember light/dark mode |
+| Username | `localStorage("username")` | Personalize greeting |
+| Contact Draft | `localStorage("contactDraft")` | Persist unsent form text |
+| Quote | External API (`api.quotable.io`) | Demonstrate data fetching and error handling |
 
-Implements:
+---
 
-Live Search – filters by title or tags.
+## 🧮 Error Handling & Feedback
+- **Form validation:** Inline messages, focus retention on invalid fields.  
+- **API failure:** Shows a friendly retry message.  
+- **Empty results:** Displays “No projects found.”  
+- **Loading states:** Animated spinner while fetching or “sending.”
 
-Category Filter – filters by type (web, app, systems).
+---
 
-Sorting – by newest, oldest, or alphabetically.
-
-Uses <details> for collapsible project descriptions.
-
-Displays an empty-state message if no results are found.
-
-External API Integration
-
-Fetches a random quote using fetch("https://api.quotable.io/random").
-
-Displays a loading spinner while waiting.
-
-Handles network or API errors gracefully and provides a retry button.
-
-Contact Form Handling
-
-Validates input for:
-
-Non-empty name
-
-Valid email format
-
-Message of at least 10 characters
-
-Shows inline feedback messages instead of alerts.
-
-Includes a fake “sending” loader and success/failure messages.
-
-Saves form draft to localStorage (contactDraft) so input isn’t lost on refresh.
-
-Animations and Transitions
-
-Elements with .fade-in class animate when they enter the viewport.
-
-Implemented with IntersectionObserver for efficiency.
-
-Buttons and cards use subtle transitions for a polished feel.
-
-Accessibility Enhancements
-
-ARIA roles for live updates and tab navigation.
-
-Focus automatically moves to section headings on tab change.
-
-Color contrast verified for both themes.
-
-Motion-reduction support for users with sensitive visual preferences.
-
-📡 Data Handling Summary
-Data	Storage / Source	Purpose
-Theme Preference	localStorage("theme")	Remember light/dark mode
-Username	localStorage("username")	Personalize greeting
-Contact Draft	localStorage("contactDraft")	Persist unsent form text
-Quote	External API (api.quotable.io)	Demonstrate data fetching and error handling
-
-🧮 Error Handling & Feedback
-Form validation: Inline messages, focus retention on invalid fields.
-
-API failure: Shows a friendly retry message.
-
-Empty results: Displays “No projects found.”
-
-Loading states: Animated spinner while fetching or “sending.”
-
-🧠 AI Enhancement Summary
+## 🧠 AI Enhancement Summary
 AI tools were used for:
+- Brainstorming new features and code structure.  
+- Drafting documentation and improving readability.  
+- Suggesting accessibility and UX improvements.  
 
-Brainstorming new features and code structure.
+All AI outputs were **reviewed, edited, and customized** by me to ensure understanding and originality.  
+Full details documented in `ai-usage-report.md`.
 
-Drafting documentation and improving readability.
+---
 
-Suggesting accessibility and UX improvements.
+## ⚡ Performance Considerations
+- Vanilla JS and CSS only (no heavy frameworks).  
+- Efficient DOM updates (rerenders only the project grid).  
+- Intersection Observer avoids costly scroll listeners.  
+- Minimized external requests (single lightweight API call).
 
-All AI outputs were reviewed, edited, and customized by me to ensure understanding and originality.
-Full details documented in ai-usage-report.md.
+---
 
-⚡ Performance Considerations
-Vanilla JS and CSS only (no heavy frameworks).
+## 🧪 Testing Checklist
+✅ Verify theme toggle persists after refresh.  
+✅ Add a name, reload, confirm greeting updates.  
+✅ Search/filter/sort projects and confirm live updates.  
+✅ Submit contact form with/without valid data.  
+✅ Disconnect internet and test quote fetch error handling.  
+✅ Check reduced-motion preference in browser settings.  
 
-Efficient DOM updates (rerenders only the project grid).
+---
 
-Intersection Observer avoids costly scroll listeners.
+## 🚀 Future Improvements
+- Add service worker for offline caching.  
+- Use `URLSearchParams` to persist filter state in the URL.  
+- Add email API (e.g., EmailJS) for real message sending.  
+- Integrate keyboard shortcuts for accessibility.
 
-Minimized external requests (single lightweight API call).
+---
 
-🧪 Testing Checklist
-✅ Verify theme toggle persists after refresh.
-✅ Add a name, reload, confirm greeting updates.
-✅ Search/filter/sort projects and confirm live updates.
-✅ Submit contact form with/without valid data.
-✅ Disconnect internet and test quote fetch error handling.
-✅ Check reduced-motion preference in browser settings.
-
-🚀 Future Improvements
-Add service worker for offline caching.
-
-Use URLSearchParams to persist filter state in the URL.
-
-Add email API (e.g., EmailJS) for real message sending.
-
-Integrate keyboard shortcuts for accessibility.
-
-✅ Conclusion
+## ✅ Conclusion
 This project demonstrates a solid understanding of:
-
-Front-end interactivity and user-centric design.
-
-State and data management in the browser.
-
-Ethical and responsible use of AI tools in web development.
+- Front-end interactivity and user-centric design.  
+- State and data management in the browser.  
+- Ethical and responsible use of AI tools in web development.
 
 The portfolio now feels modern, responsive, and professional — a major improvement over Assignment 1.
